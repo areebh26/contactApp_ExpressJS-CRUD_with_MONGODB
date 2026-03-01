@@ -2,6 +2,7 @@ let express = require("express");
 let app = express();
 let mongoose = require("mongoose");
 mongoose.connect("mongodb://127.0.0.1:27017/contactsApp");
+let users=require("./models/users.models");
 app.listen(3000,()=>{
     console.log("Server has started");
 });
@@ -19,4 +20,15 @@ app.get("/viewContact",(req,res)=>{
 });
 app.get("/updateContact",(req,res)=>{
     res.render("updateContact.ejs");
+});
+app.post("/addContacts",async(req,res)=>{
+    await users.insertOne({
+        firstName:req.body.first_name,
+        lastName:req.body.last_name,
+        email:req.body.email,
+        phone:req.body.phone,
+        address:req.body.address
+    });
+    res.redirect("/");
+
 });

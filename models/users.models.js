@@ -11,6 +11,9 @@ let user = mongoose.model("User", mongoose.Schema({
     },
     phone:{
         type:String
+    },
+    address:{
+        type:String
     }
 
 }));
