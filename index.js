@@ -21,8 +21,9 @@ app.get("/viewContact/:id",async(req,res)=>{
     let myUser = await users.find({_id : req.params.id});
     res.render("viewContact.ejs",{myUser});
 });
-app.get("/updateContact",(req,res)=>{
-    res.render("updateContact.ejs");
+app.get("/updateContact/:id",async(req,res)=>{
+    let myUser = await users.find({_id : req.params.id});
+    res.render("updateContact.ejs",{myUser});
 });
 app.post("/addContacts",async(req,res)=>{
     await users.insertOne({
