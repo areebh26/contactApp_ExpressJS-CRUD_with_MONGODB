@@ -49,3 +49,7 @@ app.post("/updateContact/:id",async(req,res)=>{
     );
     res.redirect("/");
 });
+app.get("/deleteContact/:id" , async (req,res)=>{
+    await users.deleteOne({_id : req.params.id});
+    res.redirect("/");
+});
