@@ -15,3 +15,6 @@ app.get("/addContact",(req,res)=>{
 app.get("/viewContact",(req,res)=>{
     res.render("viewContact.ejs");
 });
+app.get("/updateContact",(req,res)=>{
+    res.render("updateContact.ejs");
+});
