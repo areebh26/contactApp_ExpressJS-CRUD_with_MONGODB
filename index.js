@@ -36,3 +36,16 @@ app.post("/addContacts",async(req,res)=>{
     res.redirect("/");
 
 });
+app.post("/updateContact/:id",async(req,res)=>{
+    await users.updateOne(
+        {_id : req.params.id},
+        {$set : {
+            firstName:req.body.first_name,
+            lastName:req.body.last_name,
+            email:req.body.email,
+            phone:req.body.phone,
+            address:req.body.address
+        }}
+    );
+    res.redirect("/");
+});
