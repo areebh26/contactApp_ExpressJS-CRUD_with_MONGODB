@@ -8,15 +8,18 @@ app.listen(3000,()=>{
 });
 app.use(express.static("public"));
 app.use(express.urlencoded({extended:false}));
+app.use(express.json());
 app.set("view engine","ejs");
-app.get("/",(req,res)=>{
-    res.render("home.ejs");
+app.get("/",async(req,res)=>{
+    let user =  await users.find(); 
+    res.render("home.ejs",{user});
 });
 app.get("/addContact",(req,res)=>{
     res.render("addContact.ejs");
 });
-app.get("/viewContact",(req,res)=>{
-    res.render("viewContact.ejs");
+app.get("/viewContact/:id",async(req,res)=>{
+    let myUser = await users.find({_id : req.params.id});
+    res.render("viewContact.ejs",{myUser});
 });
 app.get("/updateContact",(req,res)=>{
     res.render("updateContact.ejs");
