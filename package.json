@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type" : "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/areebh26/contactApp_ExpressJS-CRUD_with_MONGODB#readme",
   "dependencies": {
+    "dotenv": "^17.3.1",
     "ejs": "^4.0.1",
     "express": "^5.2.1",
     "mongoose": "^9.2.3",

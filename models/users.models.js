@@ -1,5 +1,5 @@
-let mongoose = require("mongoose");
-let user = mongoose.model("User", mongoose.Schema({
+import mongoose from "mongoose";
+let users = mongoose.model("User", mongoose.Schema({
     firstName:{
         type:String
     },
@@ -17,4 +17,4 @@ let user = mongoose.model("User", mongoose.Schema({
     }
 
 }));
-module.exports = user;
+export {users};
