@@ -1,4 +1,5 @@
 import {users} from "../models/users.models.js";
+import { validationResult } from "express-validator";
 
 
 let getContacts =  async(req,res)=>{
@@ -6,7 +7,7 @@ let getContacts =  async(req,res)=>{
         page: parseInt(req.query.page) || 1,
         limit : 3
     }); 
-    console.log(user.pagingCounter);
+    
     
     
     
@@ -15,7 +16,7 @@ let getContacts =  async(req,res)=>{
 };
 
 let addContactPage = (req,res)=>{
-    res.render("addContact.ejs");
+    res.render("addContact.ejs",{error : []});
 };
 
 let viewContactPage = async(req,res)=>{
@@ -25,11 +26,13 @@ let viewContactPage = async(req,res)=>{
 
 let updateContactPage = async(req,res)=>{
     let myUser = await users.find({_id : req.params.id});
-    res.render("updateContact.ejs",{myUser});
+    res.render("updateContact.ejs",{myUser,error:[]});
 };
 
 let addContacts = async(req,res)=>{
-    await users.insertOne({
+    let errors = validationResult(req);
+    if(errors.isEmpty()){
+        await users.insertOne({
         firstName:req.body.first_name,
         lastName:req.body.last_name,
         email:req.body.email,
@@ -37,13 +40,19 @@ let addContacts = async(req,res)=>{
         address:req.body.address
     });
     res.redirect("/");
+    }else{
+        res.render("addContact.ejs",{error:errors.array()});
+    }
+   
 
 };
 
 let updateContacts = async(req,res)=>{
-    await users.updateOne(
-        {_id : req.params.id},
-        {$set : {
+    let errors = validationResult(req);
+    if(errors.isEmpty()){
+             await users.updateOne(
+                {_id : req.params.id},
+                {$set : {
             firstName:req.body.first_name,
             lastName:req.body.last_name,
             email:req.body.email,
@@ -52,6 +61,11 @@ let updateContacts = async(req,res)=>{
         }}
     );
     res.redirect("/");
+    }else{
+         let myUser = await users.find({_id : req.params.id});
+         res.render("updateContact.ejs",{error:errors.array(),myUser});
+    }
+   
 };
 
 let deleteContacts = async (req,res)=>{
