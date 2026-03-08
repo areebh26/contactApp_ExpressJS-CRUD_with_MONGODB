@@ -6,7 +6,9 @@ let getContacts =  async(req,res)=>{
         page: parseInt(req.query.page) || 1,
         limit : 3
     }); 
-   
+    console.log(user.pagingCounter);
+    
+    
     
     
     res.render("home.ejs",{user});
