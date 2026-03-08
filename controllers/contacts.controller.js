@@ -2,7 +2,12 @@ import {users} from "../models/users.models.js";
 
 
 let getContacts =  async(req,res)=>{
-    let user =  await users.find(); 
+    let user =  await users.paginate({},{
+        page: parseInt(req.query.page) || 1,
+        limit : 3
+    }); 
+   
+    
     
     res.render("home.ejs",{user});
 };

@@ -50,7 +50,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% user.forEach((user,index)=>{ %>
+                    
+                    <% user.docs.forEach((user,index)=>{ %>
                     <tr>
                       <td><%= index + 1 %></td>
                       <td><%= user.firstName%></td>
@@ -68,11 +69,39 @@
                     
                   </tbody>
                 </table> 
+                <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <% if(user.hasPrevPage == false){ %>
+      <li class="page-item"><a class="page-link">Previous</a></li>
+      <% } else{ %>
+    
+      <li class="page-item"><a class="page-link" href="/?page=<%= user.prevPage%>">Previous</a></li>
+    <% } %>
+    
+    <li class="page-item"><a class="page-link" href="#"><%= user.page%></a></li>
+
+
+
+    <% if(user.hasNextPage == false){ %>
+      <li class="page-item"><a class="page-link" >NEXT</a></li>
+      <% } else{ %>
+        <li class="page-item"><a class="page-link" href="/?page=<%= user.nextPage %>">Next</a></li>
+      
+    <% } %>
+    
+    
+  </ul>
+</nav>
               </div>
+              
             </div>
+            
           </div>
+          
         </div>
+        
       </div>
+      
     </main>
   </body>
 </html>
